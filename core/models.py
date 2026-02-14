@@ -29,7 +29,7 @@ class Artist(models.Model):
     description = models.TextField() # Renamed from overview
     website = models.URLField(blank=True, null=True)
     ROLE_CHOICES = [
-        ('Team Leader', 'Team Leader'),
+        ('Team Leader', 'Project Leader'),
         ('Artist', 'Artist'),
         ('Other', 'Other'),
     ]

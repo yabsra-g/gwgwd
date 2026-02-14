@@ -19,11 +19,9 @@ def artwork_detail(request, pk):
     return render(request, 'core/artwork_detail.html', {'artwork': artwork})
 
 def about(request):
-    team_leaders = Artist.objects.filter(role='Team Leader')
-    researchers = Artist.objects.exclude(role='Team Leader')
+    project_leaders = Artist.objects.filter(role='Team Leader')
     return render(request, 'core/about.html', {
-        'team_leaders': team_leaders,
-        'researchers': researchers
+        'project_leaders': project_leaders,
     })
 
 def activity_list(request):
