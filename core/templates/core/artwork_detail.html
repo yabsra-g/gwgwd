@@ -2,61 +2,64 @@
 
 {% block content %}
 <section class="works-wrapper" style="margin-top: 100px;">
-    <!-- Sidebar with Artist Info -->
+    <!-- Sidebar: Artwork Details & Description -->
     <aside class="artist-sidebar">
-        {% if artwork.artist %}
-        <div class="artist-profile" style="display: block;">
-            {% if artwork.artist.photo %}
-            <div class="artist-photo">
-                <img src="{{ artwork.artist.photo.url }}" alt="{{ artwork.artist.name }}">
+        <div class="artwork-info-sidebar">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.5rem;">{{ artwork.title
+                }}</h1>
+
+            <p
+                style="font-size: 0.9rem; color: #777; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 1px;">
+                {{ artwork.country.name }}
+            </p>
+
+            {% if artwork.description %}
+            <div class="artwork-description" style="font-size: 1.1rem; line-height: 1.8; color: #444;">
+                {{ artwork.description|linebreaks }}
             </div>
             {% endif %}
-            <h3>{{ artwork.artist.name }}</h3>
-            {% if artwork.artist.website %}
-            <p style="margin-bottom: 1rem;"><a href="{{ artwork.artist.website }}" target="_blank"
-                    style="color: #8B5E3C; text-decoration: underline; font-size: 0.9rem;">Visit Website</a></p>
-            {% endif %}
-            <div class="artist-overview">
-                {{ artwork.artist.description|linebreaks }}
+
+            <div class="back-link" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                <a href="{% url 'project_list_by_country' artwork.country.name %}"
+                    style="color: #666; text-decoration: none; font-size: 0.9rem;">
+                    &larr; Back to {{ artwork.country.name }}
+                </a>
             </div>
         </div>
-        {% else %}
-        <div class="artist-profile" style="display: block;">
-            <p>Artist information not available.</p>
-        </div>
-        {% endif %}
     </aside>
 
-    <!-- Main Content: Artwork -->
+    <!-- Main Content: Artist Info & Artwork Media -->
     <div class="works-main">
-        <div class="artwork-detail">
-            <h1>{{ artwork.title }}</h1>
-
-            <div class="detail-media">
-                {% if artwork.image %}
-                <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}"
-                    style="width: 100%; height: auto; display: block; margin-bottom: 2rem;">
-                {% elif artwork.video %}
-                <video controls style="width: 100%; height: auto; display: block; margin-bottom: 2rem;">
-                    <source src="{{ artwork.video.url }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        <!-- Artist Header -->
+        {% if artwork.artist %}
+        <div class="artist-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+            <a href="{% url 'artist_detail' artwork.artist.pk %}"
+                style="text-decoration: none; display: flex; align-items: center; gap: 1rem;">
+                {% if artwork.artist.photo %}
+                <img src="{{ artwork.artist.photo.url }}" alt="{{ artwork.artist.name }}"
+                    style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                {% else %}
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #eee;"></div>
                 {% endif %}
-            </div>
-
-            <div class="detail-info">
-                <p><strong>Category:</strong> {{ artwork.category }}</p>
-                {% if artwork.description %}
-                <div class="description">
-                    {{ artwork.description|linebreaks }}
+                <div>
+                    <h3 style="margin: 0; color: #333; font-size: 1.2rem;">{{ artwork.artist.name }}</h3>
+                    <span style="font-size: 0.8rem; color: #888; text-transform: uppercase;">View Profile</span>
                 </div>
-                {% endif %}
-            </div>
+            </a>
+        </div>
+        {% endif %}
 
-            <div class="back-link" style="margin-top: 2rem;">
-                <a href="{% url 'project_list_by_country' artwork.category %}">&larr;
-                    Back to {{ artwork.category }}</a>
-            </div>
+        <!-- Artwork Media -->
+        <div class="detail-media">
+            {% if artwork.image %}
+            <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}"
+                style="width: 100%; height: auto; display: block; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            {% elif artwork.video %}
+            <video controls style="width: 100%; height: auto; display: block; border-radius: 4px;">
+                <source src="{{ artwork.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% endif %}
         </div>
     </div>
 </section>

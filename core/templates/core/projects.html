@@ -3,13 +3,22 @@
 {% block content %}
 <div class="projects-container" style="padding: 100px 20px; text-align: center;">
     <h1>Projects</h1>
-    <div class="country-list"
-        style="margin-top: 50px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+    <p style="max-width: 600px; margin: 20px auto 3rem; color: #666;">Explore our projects by region.</p>
+
+    <div class="country-grid">
         {% for country in countries %}
-        <a href="{% url 'project_list_by_country' country.name %}" class="map-point point-{{ country.name|lower }}"
-            data-country="{{ country.name }}">
-            <div class="point-dot"></div>
-            <span class="point-label">{{ country.name }}</span>
+        <a href="{% url 'project_list_by_country' country.name %}" class="country-card">
+            <div class="country-card-image">
+                {% if country.image %}
+                <img src="{{ country.image.url }}" alt="{{ country.name }}">
+                {% else %}
+                <div class="country-placeholder"></div>
+                {% endif %}
+                <div class="country-overlay">
+                    <span class="view-text">View Projects</span>
+                </div>
+            </div>
+            <h2>{{ country.name }}</h2>
         </a>
         {% endfor %}
     </div>
@@ -18,12 +27,84 @@
 
 {% block extra_css %}
 <style>
-    .country-item {
+    .country-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .country-card {
+        text-decoration: none;
+        color: inherit;
+        display: block;
         transition: transform 0.3s ease;
     }
 
-    .country-item:hover {
-        transform: scale(1.2);
+    .country-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .country-card-image {
+        position: relative;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        background-color: #eee;
+    }
+
+    .country-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .country-card:hover .country-card-image img {
+        transform: scale(1.05);
+    }
+
+    .country-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .country-card:hover .country-overlay {
+        opacity: 1;
+    }
+
+    .view-text {
+        color: white;
+        border: 1px solid white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .country-placeholder {
+        width: 100%;
+        height: 100%;
+        background-color: #e0e0e0;
+    }
+
+    .country-card h2 {
+        font-size: 1.5rem;
+        font-family: 'Playfair Display', serif;
+        color: #333;
+        margin: 0;
     }
 </style>
 {% endblock %}

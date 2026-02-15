@@ -5,8 +5,8 @@
 
 <section class="country-project-container"
     style="max-width: 1400px; margin: 4rem auto; padding: 0 2rem; display: flex; gap: 4rem;">
-    <!-- Left Column: 30% -->
-    <div class="country-info" style="flex: 0 0 30%; width: 30%;">
+    <!-- Left Column: 40% -->
+    <div class="country-info" style="flex: 0 0 40%; width: 40%;">
         <div class="sticky-content" style="position: sticky; top: 100px;">
             <h1>{{ category }}</h1>
             {% if country and country.description %}
@@ -21,8 +21,8 @@
         </div>
     </div>
 
-    <!-- Right Column: 70% -->
-    <div class="works-grid-container" style="flex: 0 0 70%; width: 70%;">
+    <!-- Right Column: 60% -->
+    <div class="works-grid-container" style="flex: 0 0 60%; width: 60%;">
         <div class="works-grid" style="grid-template-columns: repeat(2, 1fr);">
             {% for artwork in artworks %}
             <a href="{% url 'artwork_detail' artwork.pk %}" class="work-item-link">
