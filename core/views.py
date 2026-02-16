@@ -8,7 +8,7 @@ def home(request):
 def projects(request):
     # Get list of countries from choices
     # Get list of countries
-    countries = Country.objects.all()
+    countries = Country.objects.all().order_by('name')
     return render(request, 'core/projects.html', {'countries': countries})
 
 def project_list_by_country(request, category):
