@@ -25,7 +25,7 @@ def artwork_detail(request, pk):
     return render(request, 'core/artwork_detail.html', {'artwork': artwork})
 
 def about(request):
-    project_leaders = Artist.objects.filter(role='Team Leader')
+    project_leaders = Artist.objects.filter(role='Team Leader').order_by('name')
     return render(request, 'core/about.html', {
         'project_leaders': project_leaders,
     })
