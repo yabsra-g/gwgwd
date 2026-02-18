@@ -1,15 +1,14 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-
 <section class="about-content">
     <div class="researchers" style="margin-bottom: 3rem; border-top: none; padding-top: 0; margin-top: 0;">
         <h2>Project Leaders</h2>
         {% if project_leaders %}
         <ul>
             {% for artist in project_leaders %}
-            <li><a href="{% url 'artist_detail' artist.pk %}" style="text-decoration: none; color: inherit;">{{
-                    artist.name }}</a></li>
+            <li><a href="{% url 'artist_detail' artist.pk %}"
+                    style="text-decoration: none; color: inherit;">{{artist.name }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
