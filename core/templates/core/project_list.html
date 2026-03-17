@@ -3,26 +3,24 @@
 {% block content %}
 
 
-<section class="country-project-container"
-    style="max-width: 1400px; margin: 4rem auto; padding: 0 2rem; display: flex; gap: 4rem;">
+<section class="country-project-container">
     <!-- Left Column: 40% -->
-    <div class="country-info" style="flex: 0 0 40%; width: 40%;">
-        <div class="sticky-content" style="position: sticky; top: 100px;">
+    <div class="country-info">
+        <div class="sticky-content">
             <h1>{{ category }}</h1>
             {% if country and country.description %}
-            <div class="country-description" style="margin-top: 1.5rem; font-size: 1.1rem; line-height: 1.6;">
+            <div class="country-description">
                 {{ country.description|linebreaks }}
             </div>
             {% endif %}
 
-            <a href="{% url 'projects' %}"
-                style="display: inline-block; margin-top: 2rem; color: #666; text-decoration: none; border-bottom: 1px solid #666;">&larr;
+            <a href="{% url 'projects' %}" class="back-to-map">&larr;
                 Back to Map</a>
         </div>
     </div>
 
     <!-- Right Column: 60% -->
-    <div class="works-grid-container" style="flex: 0 0 60%; width: 60%;">
+    <div class="works-grid-container">
         <div class="works-grid" style="grid-template-columns: repeat(2, 1fr);">
             {% for artwork in artworks %}
             <a href="{% url 'artwork_detail' artwork.pk %}" class="work-item-link">

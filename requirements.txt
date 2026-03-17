@@ -8,3 +8,5 @@ crispy-bootstrap4==2024.10
 easy-thumbnails==2.10
 pillow==11.0.0
 tzdata==2024.2
+boto3==1.42.69
+django-storages==1.14.6

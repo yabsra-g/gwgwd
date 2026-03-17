@@ -42,7 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'storages',
 ]
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ.get('R2_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('R2_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('R2_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = f"https://{os.environ.get('CF_ACCOUNT_ID')}.r2.cloudflarestorage.com"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

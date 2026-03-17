@@ -21,6 +21,9 @@
         <div class="logo">
             <a href="{% url 'home' %}">Gather Wood, Gather Words</a>
         </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
         <nav class="site-nav">
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -46,6 +49,12 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function () {
+            document.querySelector('.site-nav').classList.toggle('nav-open');
+            this.classList.toggle('active');
+        });
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 
