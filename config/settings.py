@@ -61,6 +61,7 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('R2_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = f"https://{os.environ.get('CF_ACCOUNT_ID')}.r2.cloudflarestorage.com"
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = 'https://pub-8f5365ac677b49d2b52d43eb32fc73f8.r2.dev'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
