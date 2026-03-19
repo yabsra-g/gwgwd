@@ -38,9 +38,10 @@ class Activity(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    date = models.DateTimeField()
+    date = models.DateField()
     image = models.ImageField(upload_to='activities/images/', blank=True, null=True)
     video = models.FileField(upload_to='activities/videos/', blank=True, null=True)
+    document = models.FileField(upload_to='activities/documents/', blank=True, null=True)
     
     class Meta:
         verbose_name_plural = "Activities"
@@ -54,7 +55,6 @@ class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
     iso_code = models.CharField(max_length=2, blank=True, null=True, unique=True, help_text="2-character ISO country code (e.g. BR, MA)")
     description = models.TextField()
-    image = models.ImageField(upload_to='countries/', blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Countries"
