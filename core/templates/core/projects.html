@@ -102,8 +102,10 @@
         <div id="map-container" style="max-width: 1100px; margin: 0 auto; position: relative;">
             <div id="map-wrapper"
                 style="width: 100%; border-radius: 12px; background: #f5f0eb; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 2rem;">
-                <object id="world-map" data="{% static 'core/world.svg' %}" type="image/svg+xml"
-                    style="width: 100%; height: 600px; display: block;"></object>
+                <div id="map-wrapper"
+                    style="width: 100%; border-radius: 12px; background: #f5f0eb; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 2rem;">
+                    {% include 'core/includes/world_map.svg' %}
+                </div>
             </div>
             <!-- Tooltip -->
             <div id="map-tooltip"
@@ -143,34 +145,37 @@
     (function () {
         const activeCountries = {{ active_countries_json| safe
     }};
+    const tooltip = document.getElementById('map-tooltip');
 
-    function applyMap() {
-        const svgObj = document.getElementById('world-map');
-        if (!svgObj || !svgObj.contentDocument) return;
+    const paths = document.querySelectorAll('#world-map path[id]');
 
-        const doc = svgObj.contentDocument;
-        const paths = doc.querySelectorAll('path[id]');
-        if (paths.length === 0) return;
+    paths.forEach(function (path) {
+        const id = path.getAttribute('id');
+        if (activeCountries[id]) {
+            path.setAttribute('fill', '#8B5E3C');
+            path.style.cursor = 'pointer';
 
-        paths.forEach(function (path) {
-            const id = path.getAttribute('id');
-            if (activeCountries[id]) {
+            path.addEventListener('mouseenter', function (e) {
+                path.setAttribute('fill', '#6d4930');
+                tooltip.textContent = activeCountries[id];
+                tooltip.style.display = 'block';
+            });
+            path.addEventListener('mousemove', function (e) {
+                tooltip.style.left = (e.clientX + 12) + 'px';
+                tooltip.style.top = (e.clientY - 30) + 'px';
+            });
+            path.addEventListener('mouseleave', function () {
                 path.setAttribute('fill', '#8B5E3C');
-                path.style.cursor = 'pointer';
-                path.addEventListener('click', function () {
-                    window.location.href = '/projects/' + encodeURIComponent(activeCountries[id]) + '/';
-                });
-            } else {
-                path.setAttribute('fill', '#ddd');
-                path.style.pointerEvents = 'none';
-            }
-        });
-    }
-
-    const svgObj = document.getElementById('world-map');
-    svgObj.addEventListener('load', applyMap);
-    setTimeout(applyMap, 1000);
-    setTimeout(applyMap, 2000);
+                tooltip.style.display = 'none';
+            });
+            path.addEventListener('click', function () {
+                window.location.href = '/projects/' + encodeURIComponent(activeCountries[id]) + '/';
+            });
+        } else {
+            path.setAttribute('fill', '#ddd');
+            path.style.pointerEvents = 'none';
+        }
+    });
 }) ();
 </script>
 {% endblock %}
