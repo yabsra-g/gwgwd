@@ -49,7 +49,7 @@ class Activity(models.Model):
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=100, unique=True, help_text="Must match the category name in Artwork (e.g., 'Morocco', 'Brazil')")
+    name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     image = models.ImageField(upload_to='countries/', blank=True, null=True)
 
