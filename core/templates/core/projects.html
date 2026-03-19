@@ -143,8 +143,7 @@
 {% block extra_js %}
 <script>
     (function () {
-        const activeCountries = {{ active_countries_json| safe
-    }};
+        const activeCountries = {{ active_countries_json|safe }};
     const tooltip = document.getElementById('map-tooltip');
 
     const paths = document.querySelectorAll('#world-map [id]');
