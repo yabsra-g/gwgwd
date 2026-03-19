@@ -1,15 +1,22 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Artwork, Artist, Activity, Country
+import json
 
 def home(request):
     latest_activities = Activity.objects.all()[:3]
     return render(request, 'core/home.html', {'latest_activities': latest_activities})
 
 def projects(request):
-    # Get list of countries from choices
-    # Get list of countries
     countries = Country.objects.all().order_by('name')
-    return render(request, 'core/projects.html', {'countries': countries})
+    # Build dict of {iso_code: country_name} for countries that have artworks
+    active_countries = {}
+    for country in countries:
+        if country.iso_code and country.artworks.exists():
+            active_countries[country.iso_code] = country.name
+    return render(request, 'core/projects.html', {
+        'countries': countries,
+        'active_countries_json': json.dumps(active_countries),
+    })
 
 def project_list_by_country(request, category):
     artworks = Artwork.objects.filter(country__name=category)
