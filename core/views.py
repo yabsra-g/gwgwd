@@ -8,11 +8,11 @@ def home(request):
 
 def projects(request):
     countries = Country.objects.all().order_by('name')
-    # Build dict of {iso_code: country_name} for countries that have artworks
     active_countries = {}
     for country in countries:
         if country.iso_code and country.artworks.exists():
             active_countries[country.iso_code] = country.name
+    print("DEBUG active_countries:", active_countries)  # add this line
     return render(request, 'core/projects.html', {
         'countries': countries,
         'active_countries_json': json.dumps(active_countries),
