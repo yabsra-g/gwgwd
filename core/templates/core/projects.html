@@ -143,58 +143,34 @@
     (function () {
         const activeCountries = {{ active_countries_json| safe
     }};
-    const tooltip = document.getElementById('map-tooltip');
 
-    function initMap() {
+    function applyMap() {
         const svgObj = document.getElementById('world-map');
-        if (!svgObj) return;
+        if (!svgObj || !svgObj.contentDocument) return;
 
-        const svgDoc = svgObj.contentDocument;
-        if (!svgDoc) return;
+        const doc = svgObj.contentDocument;
+        const paths = doc.querySelectorAll('path[id]');
+        if (paths.length === 0) return;
 
-        const allPaths = svgDoc.querySelectorAll('path[id]');
-        if (allPaths.length === 0) {
-            setTimeout(initMap, 200);
-            return;
-        }
-
-        allPaths.forEach(function (path) {
-            const isoCode = path.getAttribute('id');
-
-            if (activeCountries[isoCode]) {
-                path.style.fill = '#8B5E3C';
+        paths.forEach(function (path) {
+            const id = path.getAttribute('id');
+            if (activeCountries[id]) {
+                path.setAttribute('fill', '#8B5E3C');
                 path.style.cursor = 'pointer';
-                path.style.transition = 'fill 0.2s ease';
-
-                path.addEventListener('mouseenter', function (e) {
-                    path.style.fill = '#6d4930';
-                    tooltip.textContent = activeCountries[isoCode];
-                    tooltip.style.display = 'block';
-                });
-
-                path.addEventListener('mousemove', function (e) {
-                    tooltip.style.left = (e.clientX + 12) + 'px';
-                    tooltip.style.top = (e.clientY - 30) + 'px';
-                });
-
-                path.addEventListener('mouseleave', function () {
-                    path.style.fill = '#8B5E3C';
-                    tooltip.style.display = 'none';
-                });
-
                 path.addEventListener('click', function () {
-                    window.location.href = '/projects/' + encodeURIComponent(activeCountries[isoCode]) + '/';
+                    window.location.href = '/projects/' + encodeURIComponent(activeCountries[id]) + '/';
                 });
             } else {
-                path.style.fill = '#ddd';
-                path.style.cursor = 'default';
+                path.setAttribute('fill', '#ddd');
                 path.style.pointerEvents = 'none';
             }
         });
     }
 
-    document.getElementById('world-map').addEventListener('load', initMap);
-    setTimeout(initMap, 500);
+    const svgObj = document.getElementById('world-map');
+    svgObj.addEventListener('load', applyMap);
+    setTimeout(applyMap, 1000);
+    setTimeout(applyMap, 2000);
 }) ();
 </script>
 {% endblock %}
