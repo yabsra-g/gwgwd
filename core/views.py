@@ -41,4 +41,8 @@ def activity_detail(request, slug):
 
 def artist_detail(request, pk):
     artist = get_object_or_404(Artist, pk=pk)
-    return render(request, 'core/artist_detail.html', {'artist': artist})
+    selected_works = artist.artworks.order_by('?')[:4]
+    return render(request, 'core/artist_detail.html', {
+        'artist': artist,
+        'selected_works': selected_works,
+    })

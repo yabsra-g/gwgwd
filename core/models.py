@@ -21,6 +21,8 @@ class Artist(models.Model):
     photo = models.ImageField(upload_to='artists/', blank=True, null=True)
     description = models.TextField() # Renamed from overview
     website = models.URLField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=30, blank=True, null=True)
     ROLE_CHOICES = [
         ('Team Leader', 'Project Leader'),
         ('Artist', 'Artist'),

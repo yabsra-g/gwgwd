@@ -16,6 +16,14 @@
             <p style="margin-bottom: 1rem;"><a href="{{ artist.website }}" target="_blank"
                     style="color: #8B5E3C; text-decoration: underline; font-size: 0.9rem;">Visit Website</a></p>
             {% endif %}
+            {% if artist.email %}
+            <p style="margin-bottom: 0.5rem;"><a href="mailto:{{ artist.email }}"
+                    style="color: #8B5E3C; text-decoration: underline; font-size: 0.9rem;">{{ artist.email }}</a></p>
+            {% endif %}
+            {% if artist.phone_number %}
+            <p style="margin-bottom: 1rem;"><a href="tel:{{ artist.phone_number }}"
+                    style="color: #8B5E3C; text-decoration: none; font-size: 0.9rem;">📞 {{ artist.phone_number }}</a></p>
+            {% endif %}
         </div>
     </aside>
 
@@ -31,6 +39,35 @@
                 </div>
                 {% endif %}
             </div>
+
+            {% if selected_works %}
+            <div class="selected-works" style="margin-top: 3rem;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 1.5rem; color: #333;">Selected Works</h2>
+                <div class="works-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    {% for artwork in selected_works %}
+                    <a href="{% url 'artwork_detail' artwork.pk %}" class="work-item-link" style="text-decoration: none; color: inherit;">
+                        <div class="work-item" style="border-radius: 6px; overflow: hidden; background: #fafafa; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                            {% if artwork.image %}
+                            <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" style="width: 100%; height: 180px; object-fit: cover; display: block;">
+                            {% elif artwork.video %}
+                            <video style="width: 100%; height: 180px; object-fit: cover; display: block;" muted>
+                                <source src="{{ artwork.video.url }}" type="video/mp4">
+                            </video>
+                            {% else %}
+                            <div style="width: 100%; height: 180px; background: #eee;"></div>
+                            {% endif %}
+                            <div style="padding: 0.75rem;">
+                                <h3 style="margin: 0; font-size: 0.95rem; color: #333;">{{ artwork.title }}</h3>
+                                {% if artwork.country %}
+                                <p style="margin: 0.25rem 0 0; font-size: 0.8rem; color: #888;">{{ artwork.country.name }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
 
             <div class="back-link" style="margin-top: 4rem;">
                 <a href="{% url 'about' %}">&larr; Back to Team</a>
