@@ -20,6 +20,14 @@
                 {{ activity.description|linebreaks }}
             </div>
 
+            {% if activity.document %}
+            <div class="activity-document">
+                <a href="{{ activity.document.url }}" download class="document-download-link">
+                    📄 Download Document
+                </a>
+            </div>
+            {% endif %}
+
             {% if activity.video %}
             <div class="activity-video">
                 <video controls>

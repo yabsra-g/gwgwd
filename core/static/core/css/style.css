@@ -747,6 +747,29 @@ h3 {
     color: #444;
 }
 
+.activity-document {
+    margin-top: 2rem;
+}
+
+.document-download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.document-download-link:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
 .activity-video {
     margin-top: 2rem;
 }
