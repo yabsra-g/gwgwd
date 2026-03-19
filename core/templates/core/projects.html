@@ -1,6 +1,83 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<style>
+    /* Map view: visible on desktop, hidden on mobile */
+    .map-view {
+        display: block;
+    }
+    .map-view .map-legend {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    .map-view .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .map-view .legend-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    /* Country list: hidden on desktop, visible on mobile */
+    .country-list-view {
+        display: none;
+    }
+    .country-list-view .country-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        max-width: 500px;
+        text-align: left;
+    }
+    .country-list-view .country-list li {
+        border-bottom: 1px solid #eee;
+    }
+    .country-list-view .country-list li:last-child {
+        border-bottom: none;
+    }
+    .country-list-view .country-list a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0.5rem;
+        text-decoration: none;
+        color: #333;
+        font-size: 1.1rem;
+        transition: color 0.2s ease;
+    }
+    .country-list-view .country-list a:hover {
+        color: #8B5E3C;
+    }
+    .country-list-view .country-list .arrow {
+        color: #aaa;
+        font-size: 0.9rem;
+        transition: transform 0.2s ease;
+    }
+    .country-list-view .country-list a:hover .arrow {
+        transform: translateX(4px);
+        color: #8B5E3C;
+    }
+
+    @media (max-width: 768px) {
+        .map-view {
+            display: none;
+        }
+        .country-list-view {
+            display: block;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="map-page" style="padding: 100px 20px 60px; text-align: center;">
     <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0.5rem;">Projects</h1>
@@ -8,28 +85,42 @@
         Explore our projects by region. Click a highlighted country to view its works.
     </p>
 
-    <!-- SVG Map Container -->
-    <div id="map-container" style="max-width: 1100px; margin: 0 auto; position: relative;">
-        <div id="map-wrapper" style="width: 100%; overflow: hidden; border-radius: 12px; background: #f5f0eb; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 2rem;">
-            <object id="world-map" data="{% static 'core/world.svg' %}" type="image/svg+xml"
-                style="width: 100%; height: auto; display: block;"></object>
+    <!-- Desktop: SVG Map -->
+    <div class="map-view">
+        <div id="map-container" style="max-width: 1100px; margin: 0 auto; position: relative;">
+            <div id="map-wrapper" style="width: 100%; border-radius: 12px; background: #f5f0eb; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 2rem;">
+                <object id="world-map" data="{% static 'core/world.svg' %}" type="image/svg+xml"
+                    style="width: 100%; height: auto; display: block;"></object>
+            </div>
+            <!-- Tooltip -->
+            <div id="map-tooltip"
+                style="display: none; position: fixed; background: #333; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; pointer-events: none; z-index: 1000; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            </div>
         </div>
-        <!-- Tooltip -->
-        <div id="map-tooltip"
-            style="display: none; position: fixed; background: #333; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; pointer-events: none; z-index: 1000; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+        <div class="map-legend">
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #8B5E3C;"></span>
+                Active Projects
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #ddd;"></span>
+                No Projects
+            </div>
         </div>
     </div>
 
-    <!-- Legend -->
-    <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; font-size: 0.9rem; color: #666;">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="width: 16px; height: 16px; border-radius: 3px; background: #8B5E3C; display: inline-block;"></span>
-            Active Projects
-        </div>
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="width: 16px; height: 16px; border-radius: 3px; background: #ddd; display: inline-block;"></span>
-            No Projects
-        </div>
+    <!-- Mobile: Country List -->
+    <div class="country-list-view">
+        <ul class="country-list">
+            {% for country in countries %}
+            <li>
+                <a href="{% url 'project_list_by_country' country.name %}">
+                    <span>{{ country.name }}</span>
+                    <span class="arrow">&rarr;</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}
@@ -40,6 +131,8 @@
     const activeCountries = {{ active_countries_json|safe }};
     const svgObj = document.getElementById('world-map');
     const tooltip = document.getElementById('map-tooltip');
+
+    if (!svgObj) return;
 
     svgObj.addEventListener('load', function() {
         const svgDoc = svgObj.contentDocument;
