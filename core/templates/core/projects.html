@@ -158,7 +158,7 @@
         }
 
         allPaths.forEach(function (path) {
-            const isoCode = path.getAttribute('id').toUpperCase();
+            const isoCode = path.getAttribute('id').toLowerCase();
 
             if (activeCountries[isoCode]) {
                 path.style.fill = '#8B5E3C';
