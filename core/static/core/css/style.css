@@ -2,8 +2,8 @@
     --bg-color: #F9F8F4;
     --text-color: #2C2C2C;
     --accent-color: #8B5E3C;
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'DM Sans', sans-serif;
 }
 
 * {
@@ -623,7 +623,7 @@ h3 {
     font-size: 0.9rem;
     color: #888;
     margin-bottom: 0.5rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -731,7 +731,7 @@ h3 {
 .activity-meta {
     color: #777;
     margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 .activity-hero-image img {
@@ -761,7 +761,7 @@ h3 {
     text-decoration: none;
     border-radius: 6px;
     font-size: 0.95rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 

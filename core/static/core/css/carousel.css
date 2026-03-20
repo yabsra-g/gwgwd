@@ -10,8 +10,8 @@
 .carousel-section h2 {
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    font-family: 'Playfair Display', serif;
-    /* Assuming project uses this or similar */
+    font-family: var(--font-serif, 'Cormorant Garamond', serif);
+    /* Uses global font variable */
     color: var(--text-color, #2c2c2c);
 }
 
