@@ -10,7 +10,7 @@
 .carousel-section h2 {
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    font-family: var(--font-serif, 'Cormorant Garamond', serif);
+    font-family: var(--font-serif, 'Playfair Display', serif);
     /* Uses global font variable */
     color: var(--text-color, #2c2c2c);
 }

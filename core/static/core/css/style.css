@@ -2,8 +2,8 @@
     --bg-color: #F9F8F4;
     --text-color: #2C2C2C;
     --accent-color: #8B5E3C;
-    --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'DM Sans', sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * {
@@ -16,8 +16,12 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-sans);
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Header */
@@ -32,11 +36,11 @@ body {
 
 .logo a {
     font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 1.2rem;
+    font-weight: 500;
+    font-size: 1.35rem;
     text-decoration: none;
     color: var(--text-color);
-    letter-spacing: 1px;
+    letter-spacing: 0.02em;
 }
 
 .site-nav ul {
@@ -48,10 +52,11 @@ body {
 .site-nav a {
     text-decoration: none;
     color: var(--text-color);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.8;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
     transition: opacity 0.3s ease;
 }
 
@@ -70,9 +75,12 @@ main {
 /* Heroes & Typography */
 h1,
 h2,
-h3 {
+h3,
+h4 {
     font-family: var(--font-serif);
-    font-weight: 400;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .btn {
@@ -182,21 +190,26 @@ h3 {
 
 .hero h1 {
     font-size: 4rem;
-    line-height: 1.1;
+    line-height: 1.08;
     margin-bottom: 2rem;
-    color: #4a3b32;
+    color: #3a2e26;
+    font-weight: 500;
+    letter-spacing: -0.02em;
 }
 
 .hero h1 em {
     font-style: italic;
     font-family: var(--font-serif);
+    font-weight: 400;
 }
 
 .hero-text {
-    max-width: 600px;
+    max-width: 580px;
     margin: 0 auto 3rem;
-    font-size: 1.1rem;
-    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #6b6259;
+    font-weight: 400;
 }
 
 .quote-section {
@@ -623,7 +636,7 @@ h3 {
     font-size: 0.9rem;
     color: #888;
     margin-bottom: 0.5rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -731,7 +744,7 @@ h3 {
 .activity-meta {
     color: #777;
     margin-bottom: 1rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
 }
 
 .activity-hero-image img {
@@ -761,7 +774,7 @@ h3 {
     text-decoration: none;
     border-radius: 6px;
     font-size: 0.95rem;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-sans);
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 

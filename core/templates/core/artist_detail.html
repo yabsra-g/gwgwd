@@ -42,7 +42,7 @@
 
             {% if selected_works %}
             <div class="selected-works" style="margin-top: 3rem;">
-                <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 1.5rem; color: #333;">Selected Works</h2>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 1.5rem; color: #333;">Selected Works</h2>
                 <div class="works-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
                     {% for artwork in selected_works %}
                     <a href="{% url 'artwork_detail' artwork.pk %}" class="work-item-link" style="text-decoration: none; color: inherit;">
