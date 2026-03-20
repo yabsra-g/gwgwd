@@ -5,10 +5,16 @@
     <div class="researchers" style="margin-bottom: 3rem; border-top: none; padding-top: 0; margin-top: 0;">
         <h2>Project Leaders</h2>
         {% if project_leaders %}
-        <ul>
+        <ul style="list-style-type: none; padding: 0;">
             {% for artist in project_leaders %}
-            <li><a href="{% url 'artist_detail' artist.pk %}"
-                    style="text-decoration: none; color: inherit;">{{artist.name }}</a></li>
+            <li style="margin-bottom: 0.8rem;">
+                <a href="{% url 'artist_detail' artist.pk %}"
+                   style="text-decoration: none; color: var(--accent-color); font-weight: 500; transition: color 0.2s ease;"
+                   onmouseover="this.style.color='#6d4a2f'"
+                   onmouseout="this.style.color='var(--accent-color)'">
+                   {{ artist.name }} <span style="font-size: 0.9em;">&rarr;</span>
+                </a>
+            </li>
             {% endfor %}
         </ul>
         {% else %}
