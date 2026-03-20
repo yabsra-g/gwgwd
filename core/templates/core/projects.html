@@ -179,16 +179,12 @@
 
 {% block extra_js %}
 <script>
-    const positions = {};
-
     function placeCards() {
         const view = document.getElementById('map-view');
         const W = view.offsetWidth;
         const H = view.offsetHeight;
         const cards = document.querySelectorAll('.country-card');
-        const count = cards.length;
 
-        // Arrange in a circular/scattered layout
         const layoutPositions = [
             { x: 0.20, y: 0.40 },
             { x: 0.65, y: 0.30 },
@@ -209,6 +205,21 @@
             card.style.left = x + 'px';
             card.style.top = y + 'px';
             coordMap[card.dataset.iso] = { x, y };
+        });
+
+        // Auto-calculate viewBox for each SVG
+        document.querySelectorAll('.country-shape svg').forEach(svg => {
+            const paths = svg.querySelectorAll('path');
+            if (!paths.length) return;
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+            paths.forEach(p => {
+                const bbox = p.getBBox();
+                minX = Math.min(minX, bbox.x);
+                minY = Math.min(minY, bbox.y);
+                maxX = Math.max(maxX, bbox.x + bbox.width);
+                maxY = Math.max(maxY, bbox.y + bbox.height);
+            });
+            svg.setAttribute('viewBox', `${minX} ${minY} ${maxX - minX} ${maxY - minY}`);
         });
 
         drawLines(coordMap, W, H);
