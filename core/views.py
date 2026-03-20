@@ -14,17 +14,25 @@ def get_svg_data():
     svg_path = os.path.join(settings.BASE_DIR, 'core', 'static', 'core', 'world.svg')
     tree = ET.parse(svg_path)
     root = tree.getroot()
-    ns = {'svg': 'http://www.w3.org/2000/svg'}
     
     data = {}
+    # Remove namespace prefix from tags
+    for elem in root.iter():
+        elem.tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+    
     for elem in root.iter():
         elem_id = elem.get('id')
         if not elem_id or elem_id == 'world-map':
             continue
-        # Serialize the element back to string
-        ET.register_namespace('', 'http://www.w3.org/2000/svg')
-        path_str = ET.tostring(elem, encoding='unicode')
-        data[elem_id] = path_str
+        # Get inner content (child paths) or the element itself
+        inner = ''
+        if list(elem):  # has children (like <g>)
+            for child in elem:
+                child.tag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+                inner += ET.tostring(child, encoding='unicode')
+        else:
+            inner = ET.tostring(elem, encoding='unicode')
+        data[elem_id] = inner
     return data
 
 SVG_DATA = get_svg_data()  # parsed once at startup
