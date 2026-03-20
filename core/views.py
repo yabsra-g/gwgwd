@@ -1,30 +1,56 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Artwork, Artist, Activity, Country
 import json
+import os
+from django.conf import settings
+from xml.etree import ElementTree as ET
+
 
 def home(request):
     latest_activities = Activity.objects.all()[:3]
     return render(request, 'core/home.html', {'latest_activities': latest_activities})
+    
+def get_svg_data():
+    svg_path = os.path.join(settings.BASE_DIR, 'core', 'static', 'core', 'world.svg')
+    tree = ET.parse(svg_path)
+    root = tree.getroot()
+    ns = {'svg': 'http://www.w3.org/2000/svg'}
+    
+    data = {}
+    for elem in root.iter():
+        elem_id = elem.get('id')
+        if not elem_id or elem_id == 'world-map':
+            continue
+        # Serialize the element back to string
+        ET.register_namespace('', 'http://www.w3.org/2000/svg')
+        path_str = ET.tostring(elem, encoding='unicode')
+        data[elem_id] = path_str
+    return data
+
+SVG_DATA = get_svg_data()  # parsed once at startup
 
 def projects(request):
     countries = Country.objects.all().order_by('name')
     active_countries = {}
     active_countries_map = []
+    
     for country in countries:
         if country.iso_code and country.artworks.exists():
             active_countries[country.iso_code] = country.name
-            if country.svg_path and country.svg_viewbox:
+            iso = country.iso_code.lower()
+            if iso in SVG_DATA:
                 active_countries_map.append({
-                    'iso_code': country.iso_code,
+                    'iso_code': iso,
                     'name': country.name,
-                    'svg_path': country.svg_path,
-                    'svg_viewbox': country.svg_viewbox,
+                    'svg_path': SVG_DATA[iso],
                 })
+    
     return render(request, 'core/projects.html', {
         'countries': countries.filter(artworks__isnull=False).distinct(),
         'active_countries_json': json.dumps(active_countries),
-        'active_countries_map': active_countries_map,
+        'active_countries_map': json.dumps(active_countries_map),
     })
+
 
 def project_list_by_country(request, category):
     artworks = Artwork.objects.filter(country__name=category)
