@@ -152,7 +152,7 @@
         <div class="country-card" data-iso="{{ country.iso_code }}" style="animation-delay: {{ forloop.counter0 }}00ms;"
             onclick="window.location.href='/projects/{{ country.name }}/'">
             <div class="country-shape">
-                <svg viewBox="{{ country.svg_viewbox }}" xmlns="http://www.w3.org/2000/svg">
+                <svg xmlns="http://www.w3.org/2000/svg">
                     {{ country.svg_path|safe }}
                 </svg>
             </div>

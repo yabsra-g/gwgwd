@@ -9,7 +9,7 @@ from xml.etree import ElementTree as ET
 def home(request):
     latest_activities = Activity.objects.all()[:3]
     return render(request, 'core/home.html', {'latest_activities': latest_activities})
-    
+
 def get_svg_data():
     svg_path = os.path.join(settings.BASE_DIR, 'core', 'static', 'core', 'world.svg')
     tree = ET.parse(svg_path)
@@ -48,7 +48,7 @@ def projects(request):
     return render(request, 'core/projects.html', {
         'countries': countries.filter(artworks__isnull=False).distinct(),
         'active_countries_json': json.dumps(active_countries),
-        'active_countries_map': json.dumps(active_countries_map),
+        'active_countries_map': active_countries_map,  # list, not json
     })
 
 
