@@ -36,7 +36,8 @@ body {
 
 .logo a {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 400;
+    font-style: normal;
     font-size: 1.35rem;
     text-decoration: none;
     color: var(--text-color);
@@ -52,16 +53,16 @@ body {
 .site-nav a {
     text-decoration: none;
     color: var(--text-color);
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
+    opacity: 1;
+    transition: color 0.3s ease;
 }
 
 .site-nav a:hover {
-    opacity: 1;
+    color: var(--accent-color);
 }
 
 /* Main Layout */
@@ -78,7 +79,8 @@ h2,
 h3,
 h4 {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 400;
+    font-style: normal;
     line-height: 1.2;
     letter-spacing: -0.01em;
 }
@@ -193,7 +195,8 @@ h4 {
     line-height: 1.08;
     margin-bottom: 2rem;
     color: #3a2e26;
-    font-weight: 500;
+    font-weight: 400;
+    font-style: normal;
     letter-spacing: -0.02em;
 }
 
