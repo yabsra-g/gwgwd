@@ -9,13 +9,21 @@ def home(request):
 def projects(request):
     countries = Country.objects.all().order_by('name')
     active_countries = {}
+    active_countries_map = []
     for country in countries:
         if country.iso_code and country.artworks.exists():
             active_countries[country.iso_code] = country.name
-    print("DEBUG active_countries:", active_countries)  # add this line
+            if country.svg_path and country.svg_viewbox:
+                active_countries_map.append({
+                    'iso_code': country.iso_code,
+                    'name': country.name,
+                    'svg_path': country.svg_path,
+                    'svg_viewbox': country.svg_viewbox,
+                })
     return render(request, 'core/projects.html', {
-        'countries': countries,
+        'countries': countries.filter(artworks__isnull=False).distinct(),
         'active_countries_json': json.dumps(active_countries),
+        'active_countries_map': active_countries_map,
     })
 
 def project_list_by_country(request, category):

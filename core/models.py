@@ -53,8 +53,11 @@ class Activity(models.Model):
 
 class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    iso_code = models.CharField(max_length=2, blank=True, null=True, unique=True, help_text="2-character ISO country code (e.g. BR, MA)")
     description = models.TextField()
+    image = models.ImageField(upload_to='countries/', blank=True, null=True)
+    iso_code = models.CharField(max_length=2, blank=True, null=True)
+    svg_path = models.TextField(blank=True, null=True, help_text="SVG path d attribute(s) — paste full path data")
+    svg_viewbox = models.CharField(max_length=100, blank=True, null=True, help_text="e.g. 525 460 20 15")
 
     class Meta:
         verbose_name_plural = "Countries"

@@ -1,0 +1,126 @@
+<div class="art-map-container" style="max-width: 1000px; margin: 0 auto; background-color: #ffffff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+  <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+    
+    <style>
+      .connection-line {
+        fill: none;
+        stroke: #e0e0e0;
+        stroke-width: 2;
+        stroke-dasharray: 8, 8;
+        transition: stroke 0.4s ease, stroke-dashoffset 0.4s ease;
+      }
+      
+      .country-group {
+        cursor: pointer;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      
+      .country-shape {
+        fill: #fafafa;
+        stroke: #2c3e50;
+        stroke-width: 2;
+        transition: all 0.3s ease;
+      }
+
+      .country-label {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        fill: #2c3e50;
+        letter-spacing: 2px;
+        transition: fill 0.3s ease;
+        pointer-events: none;
+      }
+
+      .country-accent {
+        fill: none;
+        stroke: #d4af37; /* Gold accent */
+        stroke-width: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      /* Hover Interactions */
+      .country-group:hover {
+        transform: translateY(-5px) scale(1.05);
+      }
+      
+      .country-group:hover .country-shape {
+        fill: #ffffff;
+        stroke: #d4af37;
+        stroke-width: 3;
+        filter: drop-shadow(0px 8px 16px rgba(212, 175, 55, 0.2));
+      }
+      
+      .country-group:hover .country-label {
+        fill: #d4af37;
+      }
+
+      .country-group:hover .country-accent {
+        opacity: 1;
+      }
+
+      .connection-line:hover {
+        stroke: #d4af37;
+        stroke-width: 3;
+        stroke-dasharray: none;
+      }
+    </style>
+
+    <defs>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f0f0f0" stroke-width="0.5"/>
+      </pattern>
+    </defs>
+    <rect width="1000" height="500" fill="url(#grid)" />
+
+    <path class="connection-line" d="M 220 160 C 220 280, 280 250, 320 360" />
+    <path class="connection-line" d="M 220 160 C 350 120, 450 150, 520 220" />
+    <path class="connection-line" d="M 320 360 C 420 380, 480 300, 520 220" />
+    <path class="connection-line" d="M 520 220 C 600 180, 680 180, 720 230" />
+    <path class="connection-line" d="M 720 230 C 760 280, 800 240, 840 320" />
+
+    <a href="#usa" target="_self">
+      <g class="country-group" style="transform-origin: 220px 160px;">
+        <path class="country-shape" d="M 160 130 L 260 120 L 290 150 L 270 190 L 230 200 L 180 180 Z" />
+        <path class="country-accent" d="M 180 140 L 250 140 M 190 160 L 270 160 M 200 180 L 250 180" />
+        <text class="country-label" x="220" y="230" text-anchor="middle">USA</text>
+      </g>
+    </a>
+
+    <a href="#brazil" target="_self">
+      <g class="country-group" style="transform-origin: 320px 360px;">
+        <path class="country-shape" d="M 280 320 L 360 300 L 390 350 L 350 420 L 300 400 L 270 360 Z" />
+        <path class="country-accent" d="M 290 340 Q 320 320 350 340 T 370 360 M 280 370 Q 310 350 340 380" />
+        <text class="country-label" x="320" y="450" text-anchor="middle">BRAZIL</text>
+      </g>
+    </a>
+
+    <a href="#morocco" target="_self">
+      <g class="country-group" style="transform-origin: 520px 220px;">
+        <path class="country-shape" d="M 490 180 L 550 170 L 570 230 L 530 270 L 480 240 Z" />
+        <path class="country-accent" d="M 500 200 L 520 220 L 540 200 L 520 180 Z M 520 220 L 540 240 L 520 260" />
+        <text class="country-label" x="520" y="300" text-anchor="middle">MOROCCO</text>
+      </g>
+    </a>
+
+    <a href="#uae" target="_self">
+      <g class="country-group" style="transform-origin: 720px 230px;">
+        <path class="country-shape" d="M 680 220 L 740 200 L 770 240 L 720 270 L 670 250 Z" />
+        <path class="country-accent" d="M 690 250 Q 710 230 730 250 T 760 240 M 710 240 L 710 210 M 730 240 L 730 200" />
+        <text class="country-label" x="720" y="300" text-anchor="middle">UAE</text>
+      </g>
+    </a>
+
+    <a href="#india" target="_self">
+      <g class="country-group" style="transform-origin: 840px 320px;">
+        <path class="country-shape" d="M 800 270 L 880 290 L 860 380 L 820 400 L 780 340 Z" />
+        <circle class="country-accent" cx="830" cy="330" r="20" />
+        <circle class="country-accent" cx="830" cy="330" r="10" />
+        <path class="country-accent" d="M 830 310 L 830 290" />
+        <text class="country-label" x="840" y="430" text-anchor="middle">INDIA</text>
+      </g>
+    </a>
+
+  </svg>
+</div>
