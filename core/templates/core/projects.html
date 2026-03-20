@@ -179,7 +179,7 @@
 
 {% block extra_js %}
 <script>
-    const positions = {{ active_countries_positions|default: "{}" | safe }};
+    const positions = {};
 
     function placeCards() {
         const view = document.getElementById('map-view');
