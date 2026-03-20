@@ -2,7 +2,7 @@
     --bg-color: #F9F8F4;
     --text-color: #2C2C2C;
     --accent-color: #8B5E3C;
-    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-serif: 'Libre Baskerville', Georgia, serif;
     --font-sans: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -197,12 +197,6 @@ h4 {
     letter-spacing: -0.02em;
 }
 
-.hero h1 em {
-    font-style: italic;
-    font-family: var(--font-serif);
-    font-weight: 400;
-}
-
 .hero-text {
     max-width: 580px;
     margin: 0 auto 3rem;
@@ -259,8 +253,8 @@ h4 {
     padding: 4rem 0;
 }
 
-.philosophy h2 em,
-.latest-activities h2 em {
+.philosophy h2,
+.latest-activities h2 {
     font-size: 2.5rem;
 }
 
@@ -1106,8 +1100,8 @@ h4 {
         grid-template-columns: 1fr;
     }
 
-    .philosophy h2 em,
-    .latest-activities h2 em {
+    .philosophy h2,
+    .latest-activities h2 {
         font-size: 1.5rem;
     }
 
